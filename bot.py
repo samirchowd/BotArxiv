@@ -1,5 +1,6 @@
 import tweepy
 import time
+import datetime
 import config
 from scrape import *
 
@@ -37,4 +38,5 @@ def send_tweets(subjects):
 # Run daily indefinitely 
 while(True):
     send_tweets(subjects)
+    print("SUCESS: " + datetime.now())
     time.sleep(86400)
