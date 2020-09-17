@@ -29,6 +29,7 @@ def send_tweets(subjects):
     """Tweets out the latest article in each category on Arxiv.org"""
     for s in subjects:
         try:
+            print(make_tweet(s))
             api.update_status(make_tweet(s))
         except:
             pass
