@@ -39,5 +39,5 @@ def send_tweets(subjects):
 while(True):
     send_tweets(subjects)
     print("SUCESS: " + str(datetime.datetime.now()))
-    print("NEXT PASS: " + str((datetime.datetime.now() + datetime.timedetla(days=1))))
+    print("NEXT PASS: " + str((datetime.datetime.now() + datetime.timedelta(days=1))))
     time.sleep(86400)
