@@ -38,5 +38,6 @@ def send_tweets(subjects):
 # Run daily indefinitely 
 while(True):
     send_tweets(subjects)
-    print("SUCESS: " + datetime.now())
+    print("SUCESS: " + datetime.datetime.now())
+    print("NEXT PASS: " + (datetime.datetime.now() + datetime.timedetla(days=1)))
     time.sleep(86400)
