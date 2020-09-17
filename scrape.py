@@ -28,7 +28,7 @@ def get_title(soup):
     titles = soup.findAll('div', {'class':'list-title mathjax'})
 
     for i in range(len(titles)):
-        titles[i] = titles[i].text.split(': ')[1]
+        titles[i] = titles[i].text.split(': ',1)[1]
     
     return titles[0]
 
