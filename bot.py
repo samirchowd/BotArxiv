@@ -1,7 +1,9 @@
 import tweepy
+import time
 import config
-# from scrape import *
+from scrape import *
 
+# Setting up authentication
 consumer_key = config.api_key
 consumer_secret = config.api_secret_key
 
@@ -11,5 +13,27 @@ access_token_secret = config.access_token_secret
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
+# Instantiating API 
 api = tweepy.API(auth)
-api.update_status('Arxiv Bot reporting in live!')
+
+# Defining subjects for links 
+subjects = ["astro-ph", "cond-mat", "gr-qc", "hep-ex",
+            "hep-lat", "hep-ph", "hep-th", "math-ph",
+            "nlin", "nucl-ex", "nucl-th", "physics",
+            "quant-ph", "math", "cs", "q-bio",
+            "q-fin", "stat", "eess", "econ"
+             ]
+
+# Send tweets on a given array 
+def send_tweets(subjects):
+    """Tweets out the latest article in each category on Arxiv.org"""
+    for s in subjects:
+        try:
+            api.update_status(make_tweet(s))
+        except:
+            pass
+
+# Run daily indefinitely 
+while(True):
+    send_tweets(subjects)
+    time.sleep(86400)

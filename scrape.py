@@ -1,40 +1,14 @@
 from bs4 import BeautifulSoup
 import urllib.request
 
-# Setting up connection and grabbing data
-url = 'https://arxiv.org/list/physics/new'
-content = urllib.request.urlopen(url)
-
-html = content.read()
-
-content.close()
-
-# Parsing the HTML 
-soup = BeautifulSoup(html, 'html.parser')
-
-# Retriving titles and extrating the text
-titles = soup.findAll('div', {'class':'list-title mathjax'})
-
-for i in range(len(titles)):
-    titles[i] = titles[i].text.split(': ',1)[1]
-
-print(titles[0])
-# Retriving all the links or doi values
-links = soup.findAll('span', {'class':'list-identifier'})
-
-for i in range(len(links)):
-    links[i] = links[i].a.text.split(':')[1]
-
-print(links[0])
-
-print('https://arxiv.org/abs/' + links[0])
-
-
+# Defining functions in order to make tweet
 def get_url(subject):
-    url = "https//arxiv.org/list" + subject + "new"
+    """Retrives url given a subject area"""
+    url = "https://arxiv.org/list/" + subject + "/new"
     return url 
 
 def get_html(url):
+    """Retrieves the HTML content of a given url"""
     content = urllib.request.urlopen(url)
 
     html = content.read()
@@ -44,12 +18,13 @@ def get_html(url):
     return html
 
 def parse_html(html):
+    """Returns a parsed soup object given any HTML"""
     soup = BeautifulSoup(html, 'html.parser')
 
     return soup
 
 def get_title(soup):
-    # Retriving titles and extrating the text
+    """Returns the first title on the given parsed HTML"""
     titles = soup.findAll('div', {'class':'list-title mathjax'})
 
     for i in range(len(titles)):
@@ -58,10 +33,7 @@ def get_title(soup):
     return titles[0]
 
 def get_link(soup):
-    # Retriving all the links or doi values
-    links = soup.findAll('span', {'class':'list-identifier'})
-
-   # Retriving all the links or doi values
+    """Returns the first link on the given parsed HTML"""
     links = soup.findAll('span', {'class':'list-identifier'})
 
     for i in range(len(links)):
@@ -69,10 +41,13 @@ def get_link(soup):
 
     return links[0]
 
-def generate_url(link):
-    return "https://arxiv.org/list" + link
+def generate_ref(link):
+    """Generates an Arxiv link based on the DOI"""
+    return "https://arxiv.org/abs/" + link
 
-def get_tweet(subject):
+# Master function that creates a single formatted tweet
+def make_tweet(subject):
+    """Returns a formatted tweet given a subject""" 
     url = get_url(subject)
 
     html = get_html(url)
@@ -82,5 +57,13 @@ def get_tweet(subject):
     title = get_title(soup)
 
     link = get_link(soup)
+
+    ref = generate_ref(link)
+
+    tweet = "Title: {}\n{}".format(title, ref)
+
+    return tweet
+
+    
 
     
