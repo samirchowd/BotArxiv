@@ -60,7 +60,7 @@ def make_tweet(subject):
 
     ref = generate_ref(link)
 
-    tweet = "Title: {}\n{}".format(title, ref)
+    tweet = "{}\n{}".format(title, ref)
 
     return tweet
 
