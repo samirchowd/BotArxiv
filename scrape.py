@@ -4,7 +4,7 @@ import urllib.request
 # Defining functions in order to make tweet
 def get_url(subject):
     """Retrives url given a subject area"""
-    url = "https://arxiv.org/list/" + subject + "/new"
+    url = "https://export.arxiv.org/list/" + subject + "/new"
     return url 
 
 def get_html(url):
@@ -43,7 +43,7 @@ def get_link(soup):
 
 def generate_ref(link):
     """Generates an Arxiv link based on the DOI"""
-    return "https://arxiv.org/abs/" + link
+    return "https://export.arxiv.org/abs/" + link
 
 # Master function that creates a single formatted tweet
 def make_tweet(subject):
