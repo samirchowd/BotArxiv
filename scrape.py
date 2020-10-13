@@ -5,7 +5,7 @@ import urllib.request
 def get_url(subject):
     """Retrives url given a subject area"""
     url = "https://export.arxiv.org/list/" + subject + "/new"
-    return url 
+    return url
 
 def get_html(url):
     """Retrieves the HTML content of a given url"""
@@ -29,7 +29,7 @@ def get_title(soup):
 
     for i in range(len(titles)):
         titles[i] = titles[i].text.split(': ',1)[1]
-    
+
     return titles[0]
 
 def get_link(soup):
@@ -46,8 +46,8 @@ def generate_ref(link):
     return "https://export.arxiv.org/abs/" + link
 
 # Master function that creates a single formatted tweet
-def make_tweet(subject):
-    """Returns a formatted tweet given a subject""" 
+def make_tweet(subject, hashtag):
+    """Returns a formatted tweet given a subject and a hashtag"""
     url = get_url(subject)
 
     html = get_html(url)
@@ -60,10 +60,9 @@ def make_tweet(subject):
 
     ref = generate_ref(link)
 
-    tweet = "{}\n{}".format(title, ref)
+    tweet = "{}\n{} #{}\n{}".format(title, hashtag, "arxiv", ref)
 
     return tweet
 
-    
 
-    
+
